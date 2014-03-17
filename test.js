@@ -26,6 +26,10 @@ describe('heal(json)', function(){
     // object, key, string
     equal(heal('{"foo":"bar"'), '{"foo":"bar"}')
   })
+  it('should end numbers', function(){
+    // object, key, number
+    equal(heal('{"foo":3'), '{"foo":3}')
+  });
   it('should end nested keys', function(){
     // object, key, string
     equal(heal('{"foo":{"bar"'), '{"foo":{"bar":"..."}}')

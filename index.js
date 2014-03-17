@@ -43,7 +43,7 @@ function heal(json){
     
     if ('{' == c) {
       stack.push(Obj());
-    } else if (!peek()) {
+    } else if (!peek() || peek().done) {
       if (/\d/.test(c)) stack.push(Num());
       else stack.push(Str());
     } else if ('"' == c) {
