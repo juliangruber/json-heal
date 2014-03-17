@@ -1,7 +1,7 @@
 
 # json-heal
 
-  Heal a trimmed json string.
+  Heal a cut off json string to make it parseable again.
 
 ## Example
 
