@@ -57,6 +57,10 @@ function heal(json){
       else stack.push(Str());
     } else if (peek().done && peek().is(Str)) {
       stack.push(Key());
+    } else if ('e' == c && peek().is(Bool)) {
+      peek().done = true;
+      peek().body += c;
+      continue;
     } else if ('"' == c) {
       if (peek().is(Str)) {
         peek().done = true;
