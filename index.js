@@ -21,6 +21,7 @@ var ObjEnd = Symbol('Object End');
 var Key = Symbol('Key');
 var Str = Symbol('String');
 var Num = Symbol('Number');
+var Bool = Symbol('Boolean');
 
 /**
  * Heal the given string of JSON.
@@ -50,6 +51,7 @@ function heal(json){
       continue;
     } else if (!peek() || peek().done && peek().is(Key)) {
       if (/\d/.test(c)) stack.push(Num());
+      else if ('t' == c || 'f' == c) stack.push(Bool());
       else stack.push(Str());
     } else if (peek().done && peek().is(Str)) {
       stack.push(Key());
@@ -117,6 +119,13 @@ function heal(json){
         if (':' != json[json.length - 1]) json += ':';
         json += '"..."';
         stack.push(Str());
+      }
+
+      if (symbol.is(Bool)) {
+        var str = 't' == symbol.body[0]
+          ? 'true'
+          : 'false';
+        json += str.slice(symbol.body.length);
       }
 
       if (symbol.not(Key)) {

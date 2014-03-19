@@ -58,5 +58,10 @@ describe('heal(json)', function(){
     var str = '{"action":"Track",'
     equal(heal(str), '{"action":"Track","...":"..."}')
   })
+  it('should handle booleans', function(){
+    equal(heal('t'), 'true')
+    equal(heal('f'), 'false')
+    equal(heal('{"foo":tru'), '{"foo":true}')
+  })
 })
 
