@@ -81,6 +81,16 @@ function heal(json){
     debug('stack: %j', stack);
     var symbol;
 
+    // trailing comma
+    var last = stack[stack.length - 1];
+    if (json[json.length - 1] == ','
+        && (last.is(ObjEnd) || last.is(Num) || last.is(Str) && last.done)) {
+      json += '"...":"..."';
+      stack.push(Key());
+      peek().done = true;
+      stack.push(Str());
+    }
+
     for (var i = stack.length - 1; i >= 0; i--) {
       symbol = stack[i];
       if ('' == symbol.body) continue;
