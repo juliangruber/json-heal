@@ -39,5 +39,10 @@ describe('heal(json)', function(){
     equal(heal('"foo"'), '"foo"')
     equal(heal('{"foo":"bar"}'), '{"foo":"bar"}')
   })
+  it('should handle keys after objects', function(){
+    // object, key, string, key
+    var str = '{"foo":"bar","bar":{"baz":"yes"},"sweet'
+    equal(heal(str), '{"foo":"bar","bar":{"baz":"yes"},"sweet...":"..."}')
+  })
 })
 

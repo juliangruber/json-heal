@@ -17,6 +17,7 @@ module.exports = heal;
  */
 
 var Obj = Symbol('Object');
+var ObjEnd = Symbol('Object End');
 var Key = Symbol('Key');
 var Str = Symbol('String');
 var Num = Symbol('Number');
@@ -43,11 +44,18 @@ function heal(json){
     
     if ('{' == c) {
       stack.push(Obj());
-    } else if (!peek() || peek().done) {
+    } else if ('}' == c) {
+      stack.push(ObjEnd());
+    } else if (',' == c && peek().done) {
+      continue;
+    } else if (!peek() || peek().done && peek().is(Key)) {
       if (/\d/.test(c)) stack.push(Num());
       else stack.push(Str());
+    } else if (peek().done && peek().is(Str)) {
+      stack.push(Key());
     } else if ('"' == c) {
       if (peek().is(Str)) {
+        peek().done = true;
         peek().body += c;
         continue;
       }
@@ -63,13 +71,6 @@ function heal(json){
       } else {
         stack.push(Key());
       }
-    } else if ('}' == c) {
-      for (var j = stack.length - 1; j >= 0; j--) {
-        var symbol = stack[j];
-        stack.splice(j, 1);
-        if (symbol.is(Obj)) break;
-      }
-      continue;
     }
     
     peek().body += c;
@@ -77,6 +78,25 @@ function heal(json){
 
   
   if (stack.length) {
+    debug('pre stack: %j', stack);
+
+    // Remove finished objects
+    var level = 0;
+    var start;
+    for (var i = stack.length - 1; i >= 0; i--) {
+      var symbol = stack[i];
+      if (symbol.is(ObjEnd)) {
+        if (!start) start = i;
+        level++;
+      } else if (symbol.is(Obj)) {
+        level--;
+        if (!level) {
+          stack.splice(i, start - i);
+          start = null;
+        }
+      }
+    }
+
     debug('stack: %j', stack);
     var symbol;
 
