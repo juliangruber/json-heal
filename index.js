@@ -78,31 +78,8 @@ function heal(json){
 
   
   if (stack.length) {
-    debug('pre stack: %j', stack);
-
-    // Remove finished objects
-    var level = 0;
-    var start;
-    for (var i = stack.length - 1; i >= 0; i--) {
-      var symbol = stack[i];
-      if (symbol.is(ObjEnd)) {
-        if (!start) start = i;
-        level++;
-      } else if (symbol.is(Obj)) {
-        level--;
-        if (!level) {
-          stack.splice(i, start - i);
-          start = null;
-        }
-      }
-    }
-
     debug('stack: %j', stack);
     var symbol;
-
-    function last(){
-      return json[json.length - 1];
-    }
 
     for (var i = stack.length - 1; i >= 0; i--) {
       symbol = stack[i];
@@ -111,16 +88,25 @@ function heal(json){
       debug('cur: %s symbol: %j', json, symbol);
 
       if (symbol.is(Obj)) {
-        json += '}';
+        var level = 1;
+        for (var j = i + 1; j < stack.length; j++) {
+          if (stack[j].is(Obj)) level++;
+          else if (stack[j].is(ObjEnd)) level--;
+        }
+        if (level > 0) {
+          json += '}';
+          stack.push(ObjEnd());
+        }
       }
       
       if ((symbol.is(Key) || symbol.is(Str)) && !symbol.done) {
         json += '..."';
       }
 
-      if (symbol.is(Key)) {
-        if (':' != last()) json += ':';
+      if (symbol.is(Key) && !stack[i+1]) {
+        if (':' != json[json.length - 1]) json += ':';
         json += '"..."';
+        stack.push(Str());
       }
 
       if (symbol.not(Key)) {
