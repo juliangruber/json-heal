@@ -1,4 +1,10 @@
 
+0.2.1 / 2014-03-19
+==================
+
+ * fix too narrow trailing comma logic
+ * end booleans
+
 0.2.0 / 2014-03-19
 ==================
 
