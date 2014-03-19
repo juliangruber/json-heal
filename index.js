@@ -114,8 +114,8 @@ function heal(json){
         json += '}';
       }
       
-      if (symbol.is(Key) || symbol.is(Str)) {
-        if (('"' != last() || '"' == symbol.body) && ':' != last()) json += '..."';
+      if ((symbol.is(Key) || symbol.is(Str)) && !symbol.done) {
+        json += '..."';
       }
 
       if (symbol.is(Key)) {

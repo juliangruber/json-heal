@@ -44,5 +44,10 @@ describe('heal(json)', function(){
     var str = '{"foo":"bar","bar":{"baz":"yes"},"sweet'
     equal(heal(str), '{"foo":"bar","bar":{"baz":"yes"},"sweet...":"..."}')
   })
+  it('should not end handled keys', function(){
+    // object, key, string, key, object, key, string, key
+    var str = '{"foo":"bar","beep":{"boop":"yep","nope';
+    equal(heal(str), '{"foo":"bar","beep":{"boop":"yep","nope...":"..."}}');
+  })
 })
 
