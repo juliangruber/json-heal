@@ -1,4 +1,10 @@
 
+0.3.1 / 2014-03-20
+==================
+
+ * fix for special chars in strings
+ * fix multiple strings in an array
+
 0.3.0 / 2014-03-20 
 ==================
 

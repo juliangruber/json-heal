@@ -1,6 +1,6 @@
 {
   "name": "json-heal",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Heal a cut off json string to make it parseable again",
   "repository": "segmentio/json-heal",
   "license": "MIT",
