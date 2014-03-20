@@ -211,6 +211,10 @@ function heal(json){
         json += 'null'.slice(symbol.body.length);
       }
 
+      if (symbol.is(Num) && '.' == json[json.length - 1]) {
+        json += '0';
+      }
+
       if (symbol.not(Key) && !inArray()) {
         i--;
       }

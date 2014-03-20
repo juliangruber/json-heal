@@ -118,5 +118,10 @@ describe('heal(json)', function(){
     var str = '{"foo":[],"bar":["baz'
     equal(heal(str), '{"foo":[],"bar":["baz..."]}')
   })
+  it('should complete floats', function(){
+    // object, key, number
+    var str = '{"foo":13.'
+    equal(heal(str), '{"foo":13.0}')
+  })
 })
 
