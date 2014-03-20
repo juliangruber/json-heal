@@ -57,6 +57,11 @@ describe('heal(json)', function(){
     var str = '{"foo":"bar","bar":{"baz":"yes"},"sweet'
     equal(heal(str), '{"foo":"bar","bar":{"baz":"yes"},"sweet...":"..."}')
   })
+  it('should handle strings after arrays', function(){
+    // array, string, array, string, array end, string
+    var str = '["foo",["baz"],"sweet'
+    equal(heal(str), '["foo",["baz"],"sweet..."]')
+  })
   it('should not end handled keys', function(){
     // object, key, string, key, object, key, string, key
     var str = '{"foo":"bar","beep":{"boop":"yep","nope'
@@ -66,6 +71,11 @@ describe('heal(json)', function(){
     // object, key, object, key, string, object end, key, object, key, string
     var str = '{"foo":{"bar":"baz"},"beep":{"boop":"yes'
     equal(heal(str), '{"foo":{"bar":"baz"},"beep":{"boop":"yes..."}}')
+  })
+  it('should end appropriate number of arrays', function(){
+    // array, string, array, string, array end, array, string
+    var str = '["foo",["bar"],["yes'
+    equal(heal(str), '["foo",["bar"],["yes..."]]')
   })
   it('should handle trailing commas', function(){
     var str = '{"foo":"bar",'
