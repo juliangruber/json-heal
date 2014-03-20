@@ -76,7 +76,7 @@ function heal(json){
       else if ('t' == c || 'f' == c) stack.push(Bool());
       else if ('n' == c) stack.push(Null());
       else stack.push(Str());
-    } else if (peek().done && peek().is(Str)) {
+    } else if (peek().done && peek().is(Str) && !inArray()) {
       stack.push(Key());
     } else if ('e' == c && peek().is(Bool)) {
       peek().done = true;

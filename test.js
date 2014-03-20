@@ -49,6 +49,8 @@ describe('heal(json)', function(){
     equal(heal('"foo"'), '"foo"')
     // object, key, string, object end
     equal(heal('{"foo":"bar"}'), '{"foo":"bar"}')
+    // array, string, string, array end
+    equal(heal('["foo","bar"]'), '["foo","bar"]')
   })
   it('should handle keys after objects', function(){
     // object, key, string, key
