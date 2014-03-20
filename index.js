@@ -114,10 +114,15 @@ function heal(json){
     // trailing comma
     var last = stack[stack.length - 1];
     if (json[json.length - 1] == ',' && (last.not(Str) || last.done)) {
-      json += '"...":"..."';
-      stack.push(Key());
-      peek().done = true;
-      stack.push(Str());
+      if (inArray()) {
+        json += '"..."';
+        stack.push(Str());
+      } else {
+        json += '"...":"..."';
+        stack.push(Key());
+        peek().done = true;
+        stack.push(Str());
+      }
     }
 
     for (var i = stack.length - 1; i >= 0; i--) {

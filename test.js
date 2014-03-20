@@ -81,6 +81,9 @@ describe('heal(json)', function(){
     // object, key, string (done)
     var str = '{"foo":"bar",'
     equal(heal(str), '{"foo":"bar","...":"..."}')
+    // array, string (done)
+    var str = '["foo",'
+    equal(heal(str), '["foo","..."]')
     // object, key, boolean (done)
     var str = '{"foo":true,'
     equal(heal(str), '{"foo":true,"...":"..."}')
