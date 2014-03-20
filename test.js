@@ -43,8 +43,11 @@ describe('heal(json)', function(){
     equal(heal('{"foo":{"bar"'), '{"foo":{"bar":"..."}}')
   })
   it('should noop on complete blobs', function(){
+    // number
     equal(heal('1'), '1')
+    // string
     equal(heal('"foo"'), '"foo"')
+    // object, key, string, object end
     equal(heal('{"foo":"bar"}'), '{"foo":"bar"}')
   })
   it('should handle keys after objects', function(){
