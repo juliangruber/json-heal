@@ -191,6 +191,7 @@ function heal(json){
       }
       
       if ((symbol.is(Key) || symbol.is(Str)) && !symbol.done) {
+        if (/[^\\]\\$/.test(json)) json += '\\';
         json += '..."';
       }
 

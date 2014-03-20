@@ -128,5 +128,10 @@ describe('heal(json)', function(){
     equal(heal('-'), '-0')
     equal(heal('-3'), '-3')
   })
+  it('should handle strings ending with a backslash', function(){
+    // string
+    equal(heal('"\\'), '"\\\\..."')
+    equal(heal('"\\\\'), '"\\\\..."')
+  })
 })
 
