@@ -109,5 +109,9 @@ describe('heal(json)', function(){
     // array, str, str
     equal(heal('["bar","foo'), '["bar","foo..."]')
   })
+  it('should ignore special chars in strings', function(){
+    // str
+    equal(heal('["fo]",":,{}[]'), '["fo]",":,{}[]..."]')
+  })
 })
 

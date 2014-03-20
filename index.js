@@ -61,7 +61,10 @@ function heal(json){
   for (var i = 0; i < json.length; i++) {
     c = json[i];
     
-    if ('{' == c) {
+    if (peek() && (peek().is(Str) || peek().is(Key)) && !peek().done && '"' != c) {
+      peek().body += c;
+      continue;
+    } else if ('{' == c) {
       stack.push(Obj());
     } else if ('[' == c) {
       stack.push(Arr());
