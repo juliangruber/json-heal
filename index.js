@@ -89,7 +89,7 @@ function heal(json){
         || peek().done && (peek().is(Key) || inArray())
         || peek().is(Arr)
     ) {
-      if (/\d/.test(c)) {
+      if (/[\d-]/.test(c)) {
         debug('number');
         stack.push(Num());
       } else if ('t' == c || 'f' == c) {
@@ -211,7 +211,7 @@ function heal(json){
         json += 'null'.slice(symbol.body.length);
       }
 
-      if (symbol.is(Num) && '.' == json[json.length - 1]) {
+      if (symbol.is(Num) && /\.|\-/.test(json[json.length - 1])) {
         json += '0';
       }
 

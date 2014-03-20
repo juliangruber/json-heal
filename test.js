@@ -123,5 +123,10 @@ describe('heal(json)', function(){
     var str = '{"foo":13.'
     equal(heal(str), '{"foo":13.0}')
   })
+  it('should heal negative numbers', function(){
+    // number
+    equal(heal('-'), '-0')
+    equal(heal('-3'), '-3')
+  })
 })
 
