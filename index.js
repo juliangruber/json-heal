@@ -60,32 +60,50 @@ function heal(json){
 
   for (var i = 0; i < json.length; i++) {
     c = json[i];
+    debug('char: %s', c);
     
     if (peek() && (peek().is(Str) || peek().is(Key)) && !peek().done && '"' != c) {
+      debug('in body: %s', c);
       peek().body += c;
       continue;
     } else if ('{' == c) {
+      debug('object');
       stack.push(Obj());
     } else if ('[' == c) {
+      debug('array');
       stack.push(Arr());
     } else if (']' == c) {
+      debug('array end');
       stack.push(ArrEnd());
     } else if ('}' == c) {
+      debug('object end');
       stack.push(ObjEnd());
     } else if (',' == c && peek().done) {
+      debug('comma (ignore)');
       continue;
     } else if (
         !peek()
         || peek().done && (peek().is(Key) || inArray())
         || peek().is(Arr)
     ) {
-      if (/\d/.test(c)) stack.push(Num());
-      else if ('t' == c || 'f' == c) stack.push(Bool());
-      else if ('n' == c) stack.push(Null());
-      else stack.push(Str());
+      if (/\d/.test(c)) {
+        debug('number');
+        stack.push(Num());
+      } else if ('t' == c || 'f' == c) {
+        debug('boolean');
+        stack.push(Bool());
+      } else if ('n' == c) {
+        debug('null');
+        stack.push(Null());
+      } else {
+        debug('string');
+        stack.push(Str());
+      }
     } else if (peek().done && peek().is(Str) && !inArray()) {
+      debug('key');
       stack.push(Key());
     } else if ('e' == c && peek().is(Bool)) {
+      debug('finish bool');
       peek().done = true;
       peek().body += c;
       continue;
@@ -97,16 +115,23 @@ function heal(json){
       }
       if (peek().is(Key)) {
         if (peek().done) {
+          debug('string after key');
           stack.push(Str());
         } else {
+          debug('finish key');
           peek().body += c;
           peek().done = true;
           i++;
           continue;
         }
       } else {
-        if (inArray()) stack.push(Str());
-        else stack.push(Key());
+        if (inArray()) {
+          debug('string after string in array');
+          stack.push(Str());
+        } else {
+          debug('key');
+          stack.push(Key());
+        }
       }
     }
     
