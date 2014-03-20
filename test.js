@@ -105,5 +105,9 @@ describe('heal(json)', function(){
     // array, null
     equal(heal('[nul'), '[null]')
   })
+  it('should handle multi string arrays', function(){
+    // array, str, str
+    equal(heal('["bar","foo'), '["bar","foo..."]')
+  })
 })
 
