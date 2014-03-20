@@ -18,6 +18,8 @@ module.exports = heal;
 
 var Obj = Symbol('Object');
 var ObjEnd = Symbol('Object End');
+var Arr = Symbol('Array');
+var ArrEnd = Symbol('Array End');
 var Key = Symbol('Key');
 var Str = Symbol('String');
 var Num = Symbol('Number');
@@ -41,11 +43,30 @@ function heal(json){
     return stack[stack.length - 1];
   }
 
+  function inArray(){
+    for (var i = stack.length - 1; i >= 0; i--) {
+      var arrLevel = 0;
+      var objLevel = 0;
+      var sym = stack[i];
+      if (sym.is(ArrEnd)) arrLevel--;
+      else if (sym.is(ObjEnd)) objLevel--;
+      else if (sym.is(Arr)) arrLevel++;
+      else if (sym.is(Obj)) objLevel++;
+      if (objLevel > 0) return false;
+      if (arrLevel > 0) return true;
+    }
+    return false;
+  }
+
   for (var i = 0; i < json.length; i++) {
     c = json[i];
     
     if ('{' == c) {
       stack.push(Obj());
+    } else if ('[' == c) {
+      stack.push(Arr());
+    } else if (']' == c) {
+      stack.push(ArrEnd());
     } else if ('}' == c) {
       stack.push(ObjEnd());
     } else if (',' == c && peek().done) {
@@ -77,7 +98,8 @@ function heal(json){
           continue;
         }
       } else {
-        stack.push(Key());
+        if (inArray()) stack.push(Str());
+        else stack.push(Key());
       }
     }
     
@@ -115,6 +137,18 @@ function heal(json){
           stack.push(ObjEnd());
         }
       }
+
+      if (symbol.is(Arr)) {
+        var level = 1;
+        for (var j = i + 1; j < stack.length; j++) {
+          if (stack[j].is(Arr)) level++;
+          else if (stack[j].is(ArrEnd)) level--;
+        }
+        if (level > 0) {
+          json += ']';
+          stack.push(ArrEnd());
+        }
+      }
       
       if ((symbol.is(Key) || symbol.is(Str)) && !symbol.done) {
         json += '..."';
@@ -137,7 +171,7 @@ function heal(json){
         json += 'null'.slice(symbol.body.length);
       }
 
-      if (symbol.not(Key)) {
+      if (symbol.not(Key) && !inArray()) {
         i--;
       }
     }

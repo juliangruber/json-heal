@@ -3,10 +3,6 @@ var heal = require('./');
 var equal = require('assert').equal;
 
 describe('heal(json)', function(){
-  it('should add braces', function(){
-    // object
-    equal(heal('{'), '{}')
-  })
   it('should end keys', function(){
     // object, key
     equal(heal('{"'), '{"...":"..."}')
@@ -16,15 +12,24 @@ describe('heal(json)', function(){
     // object, key 
     equal(heal('{"foo"'), '{"foo":"..."}')
     equal(heal('{"foo":'), '{"foo":"..."}')
-  });
+  })
   it('should end strings', function(){
     // object, key, string
     equal(heal('{"foo":"'), '{"foo":"..."}')
     equal(heal('{"foo":"bar'), '{"foo":"bar..."}')
-  });
+  })
   it('should end objects', function(){
+    // object
+    equal(heal('{'), '{}')
     // object, key, string
     equal(heal('{"foo":"bar"'), '{"foo":"bar"}')
+  })
+  it('should end arrays', function(){
+    // array
+    equal(heal('['), '[]')
+    // array, string
+    equal(heal('["foo'), '["foo..."]')
+    equal(heal('["foo"'), '["foo"]')
   })
   it('should end numbers', function(){
     // object, key, number
