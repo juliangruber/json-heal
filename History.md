@@ -1,4 +1,11 @@
 
+0.4.0 / 2014-03-20
+==================
+
+ * fix comma detection
+ * fix inArray
+ * add more debug calls
+
 0.3.1 / 2014-03-20
 ==================
 
