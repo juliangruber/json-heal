@@ -66,12 +66,16 @@ describe('heal(json)', function(){
     equal(heal(str), '{"foo":true,"...":"..."}')
   })
   it('should handle booleans', function(){
+    // boolean
     equal(heal('t'), 'true')
     equal(heal('f'), 'false')
+    // object, key, boolean
     equal(heal('{"foo":tru'), '{"foo":true}')
   })
   it('should handle null', function(){
+    // null
     equal(heal('n'), 'null')
+    // object, key, null
     equal(heal('{"foo":nul'), '{"foo":null}')
   })
 })
