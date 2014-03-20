@@ -17,6 +17,8 @@ describe('heal(json)', function(){
     // object, key, string
     equal(heal('{"foo":"'), '{"foo":"..."}')
     equal(heal('{"foo":"bar'), '{"foo":"bar..."}')
+    // array, string
+    equal(heal('["foo'), '["foo..."]')
   })
   it('should end objects', function(){
     // object
@@ -28,12 +30,13 @@ describe('heal(json)', function(){
     // array
     equal(heal('['), '[]')
     // array, string
-    equal(heal('["foo'), '["foo..."]')
     equal(heal('["foo"'), '["foo"]')
   })
   it('should end numbers', function(){
     // object, key, number
     equal(heal('{"foo":3'), '{"foo":3}')
+    // array, number
+    equal(heal('[3'), '[3]')
   });
   it('should end nested keys', function(){
     // object, key, string
