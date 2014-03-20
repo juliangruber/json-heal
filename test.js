@@ -113,5 +113,10 @@ describe('heal(json)', function(){
     // str
     equal(heal('["fo]",":,{}[]'), '["fo]",":,{}[]..."]')
   })
+  it('should integrate', function(){
+    // object, key, array, array end, key, array, string
+    var str = '{"foo":[],"bar":["baz'
+    equal(heal(str), '{"foo":[],"bar":["baz..."]}')
+  })
 })
 

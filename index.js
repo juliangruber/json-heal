@@ -44,9 +44,9 @@ function heal(json){
   }
 
   function inArray(){
+    var arrLevel = 0;
+    var objLevel = 0;
     for (var i = stack.length - 1; i >= 0; i--) {
-      var arrLevel = 0;
-      var objLevel = 0;
       var sym = stack[i];
       if (sym.is(ArrEnd)) arrLevel--;
       else if (sym.is(ObjEnd)) objLevel--;
