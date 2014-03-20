@@ -1,4 +1,12 @@
 
+0.3.0 / 2014-03-20 
+==================
+
+ * fix booleans starting arrays
+ * fix trailing commas in arrays
+ * fix keys appearing in arrays
+ * add basic array support
+
 0.2.1 / 2014-03-19
 ==================
 
