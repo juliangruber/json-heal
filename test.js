@@ -94,6 +94,8 @@ describe('heal(json)', function(){
     equal(heal('f'), 'false')
     // object, key, boolean
     equal(heal('{"foo":tru'), '{"foo":true}')
+    // object, boolean
+    equal(heal('[tru'), '[true]')
   })
   it('should handle null', function(){
     // null
