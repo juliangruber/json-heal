@@ -102,6 +102,8 @@ describe('heal(json)', function(){
     equal(heal('n'), 'null')
     // object, key, null
     equal(heal('{"foo":nul'), '{"foo":null}')
+    // array, null
+    equal(heal('[nul'), '[null]')
   })
 })
 
