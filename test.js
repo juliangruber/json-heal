@@ -78,8 +78,10 @@ describe('heal(json)', function(){
     equal(heal(str), '["foo",["bar"],["yes..."]]')
   })
   it('should handle trailing commas', function(){
+    // object, key, string (done)
     var str = '{"foo":"bar",'
     equal(heal(str), '{"foo":"bar","...":"..."}')
+    // object, key, boolean (done)
     var str = '{"foo":true,'
     equal(heal(str), '{"foo":true,"...":"..."}')
   })
