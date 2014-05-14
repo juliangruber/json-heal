@@ -65,6 +65,7 @@ function heal(json){
     if (peek() && (peek().is(Str) || peek().is(Key)) && !peek().done && '"' != c) {
       debug('in body: %s', c);
       peek().body += c;
+      if ('\\' == c) peek().body += json[++i];
       continue;
     } else if ('{' == c) {
       debug('object');

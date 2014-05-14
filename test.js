@@ -133,5 +133,10 @@ describe('heal(json)', function(){
     equal(heal('"\\'), '"\\\\..."')
     equal(heal('"\\\\'), '"\\\\..."')
   })
+  it('should handle escapes', function(){
+    // string
+    equal(heal('"\\"bar'), '"\\"bar..."')
+    equal(heal('"\\nbar'), '"\\nbar..."')
+  })
 })
 
