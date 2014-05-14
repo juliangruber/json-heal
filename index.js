@@ -213,7 +213,7 @@ function heal(json){
         json += 'null'.slice(symbol.body.length);
       }
 
-      if (symbol.is(Num) && /\.|\-/.test(json[json.length - 1])) {
+      if (symbol.is(Num) && /\.|\-|e/.test(json[json.length - 1])) {
         json += '0';
       }
 

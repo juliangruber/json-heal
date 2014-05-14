@@ -138,5 +138,10 @@ describe('heal(json)', function(){
     equal(heal('"\\"bar'), '"\\"bar..."')
     equal(heal('"\\nbar'), '"\\nbar..."')
   })
+  it('should handle exponents', function(){
+    // number
+    equal(heal('6.4e'), '6.4e0')
+    equal(heal('6.4e1'), '6.4e1')
+  })
 })
 
