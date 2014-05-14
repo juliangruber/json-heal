@@ -81,7 +81,7 @@ function heal(json){
       stack.push(ObjEnd());
     } else if (
         ',' == c
-        && (peek().done || peek().is(ArrEnd) || peek().is(ObjEnd))
+        && (peek().done || peek().is(ArrEnd) || peek().is(ObjEnd) || peek().is(Num))
     ) {
       debug('comma (ignore)');
       continue;

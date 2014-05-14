@@ -143,5 +143,9 @@ describe('heal(json)', function(){
     equal(heal('6.4e'), '6.4e0')
     equal(heal('6.4e1'), '6.4e1')
   })
+  it('should end numbers on colon', function(){
+    // object, key, number, key, string
+    equal(heal('{"foo":5,"bar":"o'), '{"foo":5,"bar":"o..."}')
+  })
 })
 
