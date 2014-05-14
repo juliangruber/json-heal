@@ -1,3 +1,4 @@
+[![Build Status](https://circleci.com/gh/segmentio/json-heal.png?circle-token=33c6a2acab6c7e042bdc8831dff0174ba60b16ed)](https://circleci.com/gh/segmentio/json-heal)
 
 # json-heal
 
