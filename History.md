@@ -1,4 +1,10 @@
 
+0.4.6 / 2014-05-14
+==================
+
+ * fix number completion
+ * fix numbers not ending on colon
+
 0.4.5 / 2014-05-14
 ==================
 
