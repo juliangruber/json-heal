@@ -24,6 +24,26 @@ var healed = heal(cut);       // => '{"foo...":"..."}'
 var obj = JSON.parse(healed); // => {"foo...": "..."}
 ```
 
+## Installation
+
+```bash
+$ npm install json-heal
+```
+
+## API
+
+### heal(str)
+
+  Heal `str` and return a String of parseable JSON. Unfinished syntax will be completed like this, so in most cases you'll see where the cut happened:
+
+  - trailing comma: add `"..."` or `"...":"..."` depending on whether it's in an array of object
+   - string: add `..."`
+   - misc: complete `true`, `false`, `null` and unfinished numbers
+
+## Kudos
+
+  Thanks to @segmentio for letting me publish this private module that I developed while working for them.
+
 ## License
 
   MIT
