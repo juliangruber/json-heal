@@ -1,5 +1,5 @@
 
-# json-heal [![build status](https://secure.travis-ci.org/juliangruber/json-heal.svg)](http://travis-ci.org/juliangruber/json-heal)
+# json-heal [![build status](https://secure.travis-ci.org/juliangruber/json-heal.svg)](http://travis-ci.org/juliangruber/json-heal) [![Greenkeeper badge](https://badges.greenkeeper.io/juliangruber/json-heal.svg)](https://greenkeeper.io/)
 
   Heal a cut off json string to make it parseable again.
 
